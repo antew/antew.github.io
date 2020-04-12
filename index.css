@@ -2,4 +2,16 @@
 
 @tailwind components;
 
+.code {
+  @apply rounded-sm bg-gray-900 text-orange-500 font-mono leading-loose py-1 px-2 rounded-lg;
+}
+
+a {
+  @apply text-blue-300 transition;
+}
+
+a:hover, a:active {
+  @apply text-blue-400;
+}
+
 @tailwind utilities;

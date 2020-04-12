@@ -1,10 +1,11 @@
 module.exports = {
   theme: {
-    extend: {},
-    fontFamily: {
-      'loves': ['loves']
+    extend: {
+      fontFamily: {
+        loves: ["loves"]
+      }
     }
   },
   variants: {},
-  plugins: [],
-}
+  plugins: []
+};
