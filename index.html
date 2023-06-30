@@ -211,44 +211,44 @@
             }
 
             function makeChart(data) {
-                    console.time("chart");
+                let container = document.getElementById("bbq-temp-chart");
 
-                    const opts = {
-                            title: "BBQ Temps",
-                            width: 800,
-                            height: 300,
-                            class: "bg-blue-100",
-                            plugins: [
-                                tooltipPlugin(),
-                            ],
-                            scales: {
-                                x: {
-                                  time: true
-                                },
-                                y: {
-                                  label: "Temperature (°F)"
-                                }
+                const opts = {
+                        title: "BBQ Temps",
+                        width: container.clientWidth - 12,
+                        height: 300,
+                        class: "bg-blue-100",
+                        plugins: [
+                            tooltipPlugin(),
+                        ],
+                        scales: {
+                            x: {
+                              time: true
                             },
-                            series: [
-                                    { scale: "x" },
-                                    {
-                                            label: "Food",
-                                            scale: "y",
-                                            value: (u, v) => v == null ? null : v.toFixed(1) + "F",
-                                            stroke: "brown",
-                                            width: 1/devicePixelRatio,
-                                    },
-                                    {
-                                            label: "BBQ",
-                                            scale: "y",
-                                            value: (u, v) => v == null ? null : v.toFixed(1) + "F",
-                                            stroke: "red",
-                                            width: 1/devicePixelRatio,
-                                    },
-                            ],
-                    };
+                            y: {
+                              label: "Temperature (°F)"
+                            }
+                        },
+                        series: [
+                                { scale: "x" },
+                                {
+                                        label: "Food",
+                                        scale: "y",
+                                        value: (u, v) => v == null ? null : v.toFixed(1) + "F",
+                                        stroke: "brown",
+                                        width: 1/devicePixelRatio,
+                                },
+                                {
+                                        label: "BBQ",
+                                        scale: "y",
+                                        value: (u, v) => v == null ? null : v.toFixed(1) + "F",
+                                        stroke: "red",
+                                        width: 1/devicePixelRatio,
+                                },
+                        ],
+                };
 
-                let uplot = new uPlot(opts, data, document.getElementById("bbq-temp-chart"));
+                let uplot = new uPlot(opts, data, container);
                 return uplot;
             }
 
@@ -263,11 +263,14 @@
                 getData().then(d => chart.setData(d))
             }
             let chart;
-
+            let elem = document.getElementById("bbq-temp-chart");
             getData().then(d => {
                 chart = makeChart(d);
                 wait.textContent = "";
                 setInterval(() => loop(chart), 10 * 1000);
+                window.addEventListener("resize", () => {
+                    chart.setSize({width: elem.clientWidth - 12, height: 300})
+                }, 100);
             })
 
         </script>
